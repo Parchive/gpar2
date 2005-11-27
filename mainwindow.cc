@@ -402,6 +402,7 @@ void MainWindow::open()
     case(Gtk::RESPONSE_OK):
     {
       filename_entry.set_text(dialog.get_filename());
+      filename_title.set_sensitive(true);
       preprocess();
       break;
     }
