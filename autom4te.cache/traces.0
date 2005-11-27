@@ -113,18 +113,6 @@ echo "$as_me: error: You need libstdc++" >&2;}
 m4trace:configure.ac:38: -1- AH_OUTPUT([HAVE_LIBSTDC__], [/* Define to 1 if you have the `stdc++\' library (-lstdc++). */
 #undef HAVE_LIBSTDC__])
 m4trace:configure.ac:38: -1- AC_DEFINE_TRACE_LITERAL([HAVE_LIBSTDC__])
-m4trace:configure.ac:39: -1- AC_CHECK_LIB([sigc-2.0], [main], [], [{ { echo "$as_me:$LINENO: error: You need libsigc++" >&5
-echo "$as_me: error: You need libsigc++" >&2;}
-   { (exit 1); exit 1; }; }])
-m4trace:configure.ac:39: -1- AH_OUTPUT([HAVE_LIBSIGC_2_0], [/* Define to 1 if you have the `sigc-2.0\' library (-lsigc-2.0). */
-#undef HAVE_LIBSIGC_2_0])
-m4trace:configure.ac:39: -1- AC_DEFINE_TRACE_LITERAL([HAVE_LIBSIGC_2_0])
-m4trace:configure.ac:40: -1- AC_CHECK_LIB([gtkmm-2.4], [main], [], [{ { echo "$as_me:$LINENO: error: You need libgtkmm" >&5
-echo "$as_me: error: You need libgtkmm" >&2;}
-   { (exit 1); exit 1; }; }])
-m4trace:configure.ac:40: -1- AH_OUTPUT([HAVE_LIBGTKMM_2_4], [/* Define to 1 if you have the `gtkmm-2.4\' library (-lgtkmm-2.4). */
-#undef HAVE_LIBGTKMM_2_4])
-m4trace:configure.ac:40: -1- AC_DEFINE_TRACE_LITERAL([HAVE_LIBGTKMM_2_4])
 m4trace:configure.ac:41: -1- AC_CHECK_LIB([par2], [main], [], [{ { echo "$as_me:$LINENO: error: You need libpar2" >&5
 echo "$as_me: error: You need libpar2" >&2;}
    { (exit 1); exit 1; }; }])

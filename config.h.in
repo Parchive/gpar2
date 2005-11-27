@@ -22,14 +22,8 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the `gtkmm-2.4' library (-lgtkmm-2.4). */
-#undef HAVE_LIBGTKMM_2_4
-
 /* Define to 1 if you have the `par2' library (-lpar2). */
 #undef HAVE_LIBPAR2
-
-/* Define to 1 if you have the `sigc-2.0' library (-lsigc-2.0). */
-#undef HAVE_LIBSIGC_2_0
 
 /* Define to 1 if you have the `stdc++' library (-lstdc++). */
 #undef HAVE_LIBSTDC__

@@ -36,8 +36,8 @@ AC_PROG_INSTALL
 
 dnl Checks for libraries.
 AC_CHECK_LIB(stdc++, main,,AC_MSG_ERROR(You need libstdc++))
-AC_CHECK_LIB(sigc-2.0, main,,AC_MSG_ERROR(You need libsigc++))
-AC_CHECK_LIB(gtkmm-2.4, main,,AC_MSG_ERROR(You need libgtkmm))
+dnl AC_CHECK_LIB(sigc-2.0, main,,AC_MSG_ERROR(You need libsigc++))
+dnl AC_CHECK_LIB(gtkmm-2.4, main,,AC_MSG_ERROR(You need libgtkmm))
 AC_CHECK_LIB(par2, main,,AC_MSG_ERROR(You need libpar2))
 
 dnl Checks for header files.
