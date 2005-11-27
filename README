@@ -1,0 +1,7 @@
+This is GPar2 0.1, *alpha* release.
+
+GPar2 aims at integrating every functionnality of par2cmdline in a GTK+ GUI. It depends on libpar2 and libgtkmm.
+
+The engine should be working, since the lib is entirely based on par2cmdline. The current GUI is simplistic, allowing repairing a set with minimum feedback.
+
+Please report any problems to flesueur@users.sourceforge.net. Some autotools related problems are expected ;).

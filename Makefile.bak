@@ -1,0 +1,15 @@
+CXX = g++
+CXXLDFLAGS = `pkg-config gtkmm-2.4 sigc++-2.0 --libs --cflags` -Wall -lpthread -lpar2
+CXXFLAGS = `pkg-config gtkmm-2.4 sigc++-2.0 --cflags` -Wall
+OBJECTS = mainwindow.o gpar2.o
+
+default: all
+
+clean:
+	-rm -f *.o *~ gpar2
+
+.o.c:
+	$(CXX) $(CXXFLAGS) -c $<
+
+all: $(OBJECTS)
+	$(CXX) $(CXXLDFLAGS) $(OBJECTS) -o gpar2
