@@ -4,4 +4,4 @@ GPar2 aims at integrating every functionnality of par2cmdline in a GTK+ GUI. It 
 
 The engine should be working, since the lib is entirely based on par2cmdline. The current GUI is simplistic, allowing repairing a set with minimum feedback.
 
-Please report any problems to flesueur@users.sourceforge.net. Some autotools related problems are expected ;).
+Please report any problems to the SourceForge BugTracker. Some autotools related problems are expected ;).
