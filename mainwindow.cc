@@ -418,7 +418,7 @@ void MainWindow::open()
 
 void MainWindow::about() {
   Gtk::MessageDialog dialog(*this, _("About GPar2"));
-  dialog.set_secondary_text(_("GPar2 is a GUI for par2 recovery sets.\nIn case of problems, please contact flesueur@users.sf.net."));
+  dialog.set_secondary_text(_("GPar2 is a GUI for par2 recovery sets.\nIn case of problems, please report them to the SourceForge BugTracker.\n\n(c) 2005 Francois LESUEUR"));
 
   dialog.run();
 }
