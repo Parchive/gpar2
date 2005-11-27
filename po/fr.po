@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpar2 0.1\n"
 "Report-Msgid-Bugs-To: flesueur@users.sourceforge.net\n"
-"POT-Creation-Date: 2005-11-27 14:22+0100\n"
+"POT-Creation-Date: 2005-11-27 20:01+0100\n"
 "PO-Revision-Date: 2005-11-22 01:48+0100\n"
 "Last-Translator: Francois LESUEUR <f.lesueur@tuxlab.net>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -157,11 +157,11 @@ msgstr "Fichiers PAR2"
 msgid "Any files"
 msgstr "Tous"
 
-#: mainwindow.cc:420
+#: mainwindow.cc:421
 msgid "About GPar2"
 msgstr "À propos de GPar2"
 
-#: mainwindow.cc:421
+#: mainwindow.cc:422
 msgid ""
 "GPar2 is a GUI for par2 recovery sets.\n"
 "In case of problems, please report them to the SourceForge BugTracker.\n"
