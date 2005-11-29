@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
   setlocale(LC_MESSAGES, "");
 
   bindtextdomain( PACKAGE, LOCALEDIR);//"/usr/local/share/locale" );
+  bind_textdomain_codeset( PACKAGE, getenv("LANG"));
   textdomain( PACKAGE ) ;
 
   void* handle = dlopen("libpar2.so", RTLD_LAZY);
