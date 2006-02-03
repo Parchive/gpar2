@@ -1,3 +1,9 @@
+2006-02-03  Francois LESUEUR
+	* Version 0.2 released
+	* Added detailed output about archived files
+	* Fixed some bugs with the progressbars
+	* Added a progressbar for the reparation process
+
 2005-11-21  Francois LESUEUR
 
 	* Version 0.1: Initial release.
