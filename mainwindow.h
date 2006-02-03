@@ -22,6 +22,15 @@ public:
   Gtk::ProgressBar progressBar;
 
 protected:
+  // Current operation
+  typedef enum {
+    none,
+    repairing,
+    verifying,
+    scanning
+  } Operation;
+  Operation operation;
+
   //Signal handlers:
   virtual void verify();
   virtual void repair();
@@ -34,6 +43,8 @@ protected:
   void signal_filename(std::string filename);
   void signal_progress(double progress);
   void signal_headers(ParHeaders* headers);
+  void signal_done(std::string filename, int blocks_available, 
+		   int blocks_total);
 
   LibPar2* repairer;
 
@@ -49,6 +60,7 @@ protected:
   Gtk::Button open_button;
   //Gtk::Entry filename_entry;
   Gtk::Frame status_frame;
+  Gtk::Frame done_frame;
   Gtk::Frame headers_frame;
   Gtk::Label status_label;
 
@@ -71,6 +83,11 @@ protected:
   Gtk::Label filename_entry;
 
   Gtk::ProgressBar globalProgress;
+
+  // Files done
+  Gtk::ScrolledWindow done_window;
+  Gtk::TextView done_files;
+
   double nbdone;
   double nbfiles;
 };

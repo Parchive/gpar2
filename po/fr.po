@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpar2 0.1\n"
 "Report-Msgid-Bugs-To: flesueur@users.sourceforge.net\n"
-"POT-Creation-Date: 2005-11-27 20:01+0100\n"
+"POT-Creation-Date: 2006-02-03 17:18+0100\n"
 "PO-Revision-Date: 2005-11-22 01:48+0100\n"
 "Last-Translator: Francois LESUEUR <f.lesueur@tuxlab.net>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -17,151 +17,167 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: mainwindow.cc:7 mainwindow.cc:266
+#: mainwindow.cc:7 mainwindow.cc:321
 msgid "Set ID: "
 msgstr "Set ID : "
 
-#: mainwindow.cc:8 mainwindow.cc:282
+#: mainwindow.cc:8 mainwindow.cc:337
 msgid "Block size: "
 msgstr "Taille des blocs : "
-
-#: mainwindow.cc:9 mainwindow.cc:288
-msgid "Chunk size: "
-msgstr "Taille des chunks : "
 
 #: mainwindow.cc:10
 msgid "Data Blocks: "
 msgstr "Blocs de donnée : "
 
-#: mainwindow.cc:11 mainwindow.cc:312
+#: mainwindow.cc:11 mainwindow.cc:367
 msgid "Data size: "
 msgstr "Taille des données : "
 
-#: mainwindow.cc:12 mainwindow.cc:319
+#: mainwindow.cc:12 mainwindow.cc:374
 msgid "Recoverable files: "
 msgstr "Fichiers réparables : "
 
-#: mainwindow.cc:13 mainwindow.cc:326
+#: mainwindow.cc:13 mainwindow.cc:381
 msgid "Other files: "
 msgstr "Autres fichiers : "
-
-#: mainwindow.cc:14
-msgid "Blocks: "
-msgstr "Blocs : "
 
 #: mainwindow.cc:15
 msgid "File: "
 msgstr "Fichier : "
 
-#: mainwindow.cc:27
+#: mainwindow.cc:28
 msgid "File"
 msgstr "Fichier"
 
-#: mainwindow.cc:34
+#: mainwindow.cc:35
 msgid "Actions"
 msgstr "Actions"
 
-#: mainwindow.cc:35
+#: mainwindow.cc:36
 msgid "Repair"
 msgstr "Réparer"
 
-#: mainwindow.cc:38
+#: mainwindow.cc:39
 msgid "Verify"
 msgstr "Vérifier"
 
-#: mainwindow.cc:43
+#: mainwindow.cc:44
 msgid "Help"
 msgstr "Aide"
 
-#: mainwindow.cc:107
+#: mainwindow.cc:108
 msgid "Headers"
 msgstr "Infos"
 
-#: mainwindow.cc:160
+#: mainwindow.cc:162
+msgid "Scanned files"
+msgstr "Fichiers vérifiés"
+
+#: mainwindow.cc:197
 msgid "Status"
 msgstr "Status"
 
-#: mainwindow.cc:176
+#: mainwindow.cc:214 mainwindow.cc:215
 msgid "Repairing..."
 msgstr "Réparation..."
 
-#: mainwindow.cc:182
+#: mainwindow.cc:223
 msgid "Verifying..."
 msgstr "Vérification..."
 
-#: mainwindow.cc:189
+#: mainwindow.cc:232
 msgid "Scanning headers..."
 msgstr "Analyse..."
 
-#: mainwindow.cc:275 mainwindow.cc:305
+#: mainwindow.cc:330 mainwindow.cc:360
 msgid " bytes"
 msgstr " octets"
 
-#: mainwindow.cc:277 mainwindow.cc:307
+#: mainwindow.cc:332 mainwindow.cc:362
 msgid " kbytes"
 msgstr " koctets"
 
-#: mainwindow.cc:279 mainwindow.cc:309
+#: mainwindow.cc:334 mainwindow.cc:364
 msgid " Mbytes"
 msgstr " Moctets"
 
-#: mainwindow.cc:281 mainwindow.cc:311
+#: mainwindow.cc:336 mainwindow.cc:366
 msgid " Gbytes"
 msgstr " Goctets"
 
-#: mainwindow.cc:295
+#: mainwindow.cc:350
 msgid "Data blocks: "
 msgstr "Blocs de donnée : "
 
-#: mainwindow.cc:338
+#: mainwindow.cc:407
+msgid "Verified "
+msgstr "Vérifié "
+
+#: mainwindow.cc:407 mainwindow.cc:413
+msgid ": "
+msgstr " : "
+
+#: mainwindow.cc:409 mainwindow.cc:415
+msgid " blocks"
+msgstr " blocs"
+
+#: mainwindow.cc:411
+msgid "Missing "
+msgstr "Manquant "
+
+#: mainwindow.cc:413
+msgid "Corrupted "
+msgstr "Corrompu "
+
+#: mainwindow.cc:433
 msgid "Success !"
 msgstr "Succès !"
 
-#: mainwindow.cc:342
+#: mainwindow.cc:437
 msgid "Repair possible"
 msgstr "Réparation possible"
 
-#: mainwindow.cc:346
+#: mainwindow.cc:441
 msgid "Repair not possible"
 msgstr "Réparation impossible"
 
-#: mainwindow.cc:350
+#: mainwindow.cc:445
 msgid "Insufficient critical data"
 msgstr "Données critiques insuffisantes"
 
-#: mainwindow.cc:354
+#: mainwindow.cc:449
 msgid "Repair failed"
 msgstr "Réparation échouée"
 
-#: mainwindow.cc:358
+#: mainwindow.cc:453
 msgid "I/O error"
 msgstr "Erreur d'E/S"
 
-#: mainwindow.cc:362
+#: mainwindow.cc:457
 msgid "Internal error"
 msgstr "Erreur interne"
 
-#: mainwindow.cc:366
+#: mainwindow.cc:461
 msgid "Out of memory"
 msgstr "Mémoire pleine"
 
-#: mainwindow.cc:377
+#: mainwindow.cc:472
 msgid "Please choose a file"
 msgstr "Choisissez un fichier"
 
-#: mainwindow.cc:387
+#: mainwindow.cc:482
 msgid "PAR2 files"
 msgstr "Fichiers PAR2"
 
-#: mainwindow.cc:392
+#: mainwindow.cc:487
 msgid "Any files"
 msgstr "Tous"
 
-#: mainwindow.cc:421
+#: mainwindow.cc:516
 msgid "About GPar2"
 msgstr "À propos de GPar2"
 
-#: mainwindow.cc:422
+#: mainwindow.cc:517
 msgid ""
 "GPar2 is a GUI for par2 recovery sets.\n"
 "In case of problems, please report them to the SourceForge BugTracker.\n"
@@ -172,6 +188,12 @@ msgstr ""
 "En cas de problèmes, merci de les rapporter au BugTracker SourceForge.\n"
 "\n"
 "(c) 2005 François LESUEUR"
+
+#~ msgid "Chunk size: "
+#~ msgstr "Taille des chunks : "
+
+#~ msgid "Blocks: "
+#~ msgstr "Blocs : "
 
 #~ msgid "Open..."
 #~ msgstr "Ouvrir..."

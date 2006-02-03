@@ -1,4 +1,4 @@
-m4trace:configure.ac:23: -1- AC_INIT([gpar2], [0.1], [flesueur@users.sourceforge.net])
+m4trace:configure.ac:23: -1- AC_INIT([gpar2], [0.2], [flesueur@users.sourceforge.net])
 m4trace:configure.ac:23: -1- m4_pattern_forbid([^_?A[CHUM]_])
 m4trace:configure.ac:23: -1- m4_pattern_forbid([_AC_])
 m4trace:configure.ac:23: -1- m4_pattern_forbid([^LIBOBJS$], [do not use LIBOBJS directly, use AC_LIBOBJ (see section `AC_LIBOBJ vs LIBOBJS'])
@@ -70,7 +70,7 @@ You should run autoupdate.], [autoconf/status.m4:321: _AC_OUTPUT_COMMANDS_CNT is
 autoconf/status.m4:318: AC_OUTPUT_COMMANDS is expanded from...
 aclocal.m4:853: AM_CONFIG_HEADER is expanded from...
 configure.ac:28: the top level])
-m4trace:configure.ac:29: -1- AM_INIT_AUTOMAKE([gpar2], [0.1])
+m4trace:configure.ac:29: -1- AM_INIT_AUTOMAKE([gpar2], [0.2])
 m4trace:configure.ac:29: -1- AM_AUTOMAKE_VERSION([1.4-p6])
 m4trace:configure.ac:29: -1- AC_PROG_INSTALL
 m4trace:configure.ac:29: -1- AC_SUBST([INSTALL_PROGRAM])

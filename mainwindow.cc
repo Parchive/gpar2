@@ -6,17 +6,18 @@ using namespace Glib;
 MainWindow::MainWindow(char* text)
   : header_setid(_("Set ID: ")),
     header_blocksize(_("Block size: ")),
-    header_chunksize(_("Chunk size: ")),
+    //header_chunksize(_("Chunk size: ")),
     header_sourceblockcount(_("Data Blocks: ")),
     header_totalsize(_("Data size: ")),
     header_recoverablefiles(_("Recoverable files: ")),
     header_otherfiles(_("Other files: ")),
-    header_blocks(_("Blocks: ")),
+    //header_blocks(_("Blocks: ")),
     filename_title(_("File: "))
 {
+  operation = none;
   nbdone = 0.0;
   set_title("GPar2");
-  set_size_request(600, 300);
+  set_size_request(600, 350);
   add(main_VBox);
 
   // Menus
@@ -114,9 +115,9 @@ MainWindow::MainWindow(char* text)
   headers_col1.pack_start(header_blocksize);
   header_blocksize.set_sensitive(false);
   header_blocksize.set_alignment(Gtk::ALIGN_LEFT);
-  headers_col1.pack_start(header_chunksize);
-  header_chunksize.set_sensitive(false);
-  header_chunksize.set_alignment(Gtk::ALIGN_LEFT);
+  //headers_col1.pack_start(header_chunksize);
+  //header_chunksize.set_sensitive(false);
+  //header_chunksize.set_alignment(Gtk::ALIGN_LEFT);
   headers_col1.pack_start(header_sourceblockcount);
   header_sourceblockcount.set_sensitive(false);
   header_sourceblockcount.set_alignment(Gtk::ALIGN_LEFT);
@@ -130,9 +131,9 @@ MainWindow::MainWindow(char* text)
   headers_col2.pack_start(header_otherfiles);
   header_otherfiles.set_sensitive(false);
   header_otherfiles.set_alignment(Gtk::ALIGN_LEFT);
-  headers_col2.pack_start(header_blocks);
-  header_blocks.set_sensitive(false);
-  header_blocks.set_alignment(Gtk::ALIGN_LEFT);
+  //headers_col2.pack_start(header_blocks);
+  //header_blocks.set_sensitive(false);
+  //header_blocks.set_alignment(Gtk::ALIGN_LEFT);
   
 
   main_VBox.pack_start(main_HBox);
@@ -155,6 +156,42 @@ MainWindow::MainWindow(char* text)
   //progressBar.set_text("Coucou");
   //progressBar.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
 
+
+  // Files done
+  main_VBox.pack_start(done_frame);
+  done_frame.set_label(_("Scanned files"));
+  done_window.add(done_files);
+  done_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+  done_frame.add(done_window);
+
+  // Tags for the latter textbuffer
+  Glib::RefPtr<Gtk::TextBuffer::Tag> tagOk = 
+    Gtk::TextBuffer::Tag::create("ok");
+  tagOk->property_foreground() = "green";
+  tagOk->property_editable() = false;
+
+  Glib::RefPtr<Gtk::TextBuffer::Tag> tagWarning = 
+    Gtk::TextBuffer::Tag::create("warning");
+  tagWarning->property_foreground() = "orange";
+  tagWarning->property_editable() = false;
+
+  Glib::RefPtr<Gtk::TextBuffer::Tag> tagError = 
+    Gtk::TextBuffer::Tag::create("error");
+  tagError->property_foreground() = "red";
+  tagError->property_editable() = false;
+
+  Glib::RefPtr<Gtk::TextBuffer::Tag> tagEdit = 
+    Gtk::TextBuffer::Tag::create("edit");
+  tagError->property_editable() = false;
+
+  Glib::RefPtr<Gtk::TextBuffer> textb = done_files.get_buffer();
+  Glib::RefPtr<Gtk::TextBuffer::TagTable> refTagTable = textb->get_tag_table();
+  refTagTable->add(tagOk);
+  refTagTable->add(tagWarning);
+  refTagTable->add(tagError);
+  refTagTable->add(tagEdit);
+  textb->apply_tag(tagEdit, textb->begin(), textb->end());
+  
   // Status
   main_VBox.pack_start(status_frame);
   status_frame.set_label(_("Status"));
@@ -173,20 +210,28 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::repair() {
+  verify();
+  progressBar.set_text(_("Repairing..."));  
   status_label.set_text(_("Repairing..."));
+  operation = repairing;
   Result result = repairer->Process(true);
+  operation = none;
   update_status(result);
 }
 
 void MainWindow::verify() {
   status_label.set_text(_("Verifying..."));
+  operation = verifying;
   Result result = repairer->Process(false);
+  operation = none;
   update_status(result);
 }
 
 void MainWindow::preprocess()
 {
   status_label.set_text(_("Scanning headers..."));
+  operation = scanning;
+
   CommandLine *commandline = new CommandLine;
 
   Result result = eInvalidCommandLineArguments;
@@ -226,6 +271,8 @@ void MainWindow::preprocess()
       connect( sigc::mem_fun(*this,&MainWindow::signal_progress));
     repairer->sig_headers.
       connect( sigc::mem_fun(*this,&MainWindow::signal_headers));
+    repairer->sig_done.
+      connect( sigc::mem_fun(*this,&MainWindow::signal_done));
     result = repairer->PreProcess();
     //delete repairer;
 	  //}
@@ -244,14 +291,22 @@ void MainWindow::preprocess()
   progressBar.set_text(" ");
   progressBar.set_fraction(0.0);
   status_label.set_text("");
+  operation = none;
 }
 
 void MainWindow::signal_filename(std::string filename) {
-  nbdone += 1.0;
-  globalProgress.set_fraction(nbdone/nbfiles);
-  globalProgress.set_text(itos(int(nbdone/nbfiles*100.0)).append(" %"));
   progressBar.set_text(filename);
   while(Gtk::Main::events_pending()) Gtk::Main::iteration();
+
+  /*
+  if (operation == repairing || operation == verifying) {
+    nbdone += 1.0;
+    globalProgress.set_fraction(nbdone/nbfiles);
+    globalProgress.set_text(itos(int(nbdone/nbfiles*100.0)).append(" %"));
+  }
+  progressBar.set_text(filename);
+  while(Gtk::Main::events_pending()) Gtk::Main::iteration();
+  */
 }
 
 void MainWindow::signal_progress(double progress) {
@@ -282,13 +337,13 @@ void MainWindow::signal_headers(ParHeaders* headers) {
     header_blocksize.set_text(ustring(_("Block size: ")).append(str));
     header_blocksize.set_sensitive(true);
   }
-  if (headers->chunk_size == -1)
+  /*if (headers->chunk_size == -1)
     header_chunksize.set_sensitive(false);
   else {
     header_chunksize.set_text(ustring(_("Chunk size: ")).
 			      append(itos(headers->chunk_size)));
     header_chunksize.set_sensitive(true);
-  }
+    }*/
   if (headers->data_blocks == -1)
     header_sourceblockcount.set_sensitive(false);
   else {
@@ -331,6 +386,46 @@ void MainWindow::signal_headers(ParHeaders* headers) {
   while(Gtk::Main::events_pending()) Gtk::Main::iteration();
 }
 
+void MainWindow::signal_done(std::string filename, int blocks_available, 
+		 int blocks_total) {
+
+  Glib::RefPtr<Gtk::TextBuffer> textb = done_files.get_buffer();
+
+  Gtk::TextBuffer::iterator iter =  textb->begin();
+
+  // Update done_window
+  if (operation == scanning) {
+    textb->set_text("Loaded: "+filename+"\n"+textb->get_text());
+    done_files.set_buffer(textb);
+  }
+  else if (operation == repairing || operation == verifying) {
+    if (textb->get_char_count() != 0) {
+      textb->insert(iter, "\n");
+      iter =  textb->begin();
+    }
+    if (blocks_available == blocks_total)
+      textb->insert_with_tag(iter, _("Verified ")+filename+_(": ")+
+			     itos(blocks_available)+"/"+itos(blocks_total)+
+			     _(" blocks"),"ok");    
+    else if (blocks_available == 0)
+      textb->insert_with_tag(iter, _("Missing ")+filename,"error");
+    else
+      textb->insert_with_tag(iter, _("Corrupted ")+filename+_(": ")+
+			     itos(blocks_available)+"/"+itos(blocks_total)+
+			     _(" blocks"),"warning");
+  }
+
+  // update progressbar
+  if (operation == verifying) {
+    nbdone += 1.0;
+    globalProgress.set_fraction(nbdone/nbfiles);
+    globalProgress.set_text(itos(int(nbdone/nbfiles*100.0)).append(" %"));
+  }
+  while(Gtk::Main::events_pending()) Gtk::Main::iteration();
+
+  //done_files.set_buffer(textb);
+
+}
 
 void MainWindow::update_status(Result result) {
  switch (result) {
