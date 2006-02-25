@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include <libintl.h>
 
+Glib::ustring version = "0.3";
+
 using namespace Glib;
 
 MainWindow::MainWindow(char* text)
@@ -16,9 +18,13 @@ MainWindow::MainWindow(char* text)
 {
   operation = none;
   nbdone = 0.0;
-  set_title("GPar2");
+  set_title("GPar2 " + version);
+  set_icon_from_file("/usr/share/pixmaps/gnome-logo-icon-transparent.png");
   set_size_request(600, 350);
   add(main_VBox);
+  file_loaded = false;
+  status = undef;
+  avail_blocks = 0;
 
   // Menus
   //Create actions for menus and toolbars:
@@ -26,17 +32,21 @@ MainWindow::MainWindow(char* text)
 
   //File menu:
   m_refActionGroup->add( Gtk::Action::create("FileMenu", _("File")) );
-  m_refActionGroup->add( Gtk::Action::create("FileOpen", Gtk::Stock::OPEN), 
-			 sigc::mem_fun(*this, &MainWindow::open));
-  m_refActionGroup->add( Gtk::Action::create("FileQuit", Gtk::Stock::QUIT),
-			 sigc::mem_fun(*this, &MainWindow::quit) );
+  Glib::RefPtr<Gtk::Action> open = 
+    Gtk::Action::create("FileOpen", Gtk::Stock::OPEN);
+  open->set_tooltip(_("Open a Recovery Volume"));
+  Glib::RefPtr<Gtk::Action> quit = 
+    Gtk::Action::create("FileQuit", Gtk::Stock::QUIT);
+  quit->set_tooltip(_("Exit the Program"));
+  m_refActionGroup->add( open, sigc::mem_fun(*this, &MainWindow::open));
+  m_refActionGroup->add( quit, sigc::mem_fun(*this, &MainWindow::quit) );
 
   //Action menu:
   m_refActionGroup->add( Gtk::Action::create("ActionMenu", _("Actions")) );
-  m_refActionGroup->add( Gtk::Action::create("ActionRepair",Gtk::Stock::EXECUTE, _("Repair")),
+  m_refActionGroup->add( Gtk::Action::create("ActionRepair",Gtk::Stock::EXECUTE, _("Repair"), _("Repair a Damaged Archive")),
 			 Gtk::AccelKey("<control>R"),
 			 sigc::mem_fun(*this, &MainWindow::repair));
-  m_refActionGroup->add( Gtk::Action::create("ActionVerify",Gtk::Stock::APPLY, _("Verify")),
+  m_refActionGroup->add( Gtk::Action::create("ActionVerify",Gtk::Stock::APPLY, _("Verify"), _("Verify an Archive")),
 			 Gtk::AccelKey("<control>V"),
 			 sigc::mem_fun(*this, &MainWindow::verify));
 
@@ -74,6 +84,8 @@ MainWindow::MainWindow(char* text)
         "    <separator/>"
         "    <toolitem action='ActionVerify'/>"
         "    <toolitem action='ActionRepair'/>"
+        "    <separator/>"
+        "    <toolitem action='FileQuit'/>"
         "  </toolbar>"
         "</ui>";
         
@@ -161,8 +173,9 @@ MainWindow::MainWindow(char* text)
   main_VBox.pack_start(done_frame);
   done_frame.set_label(_("Scanned files"));
   done_window.add(done_files);
-  done_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+  done_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_ALWAYS);
   done_frame.add(done_window);
+  done_files.set_editable(false);
 
   // Tags for the latter textbuffer
   Glib::RefPtr<Gtk::TextBuffer::Tag> tagOk = 
@@ -210,28 +223,45 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::repair() {
-  verify();
-  progressBar.set_text(_("Repairing..."));  
-  status_label.set_text(_("Repairing..."));
-  operation = repairing;
-  Result result = repairer->Process(true);
-  operation = none;
-  update_status(result);
+  if (!file_loaded)
+    errors(Error(notloaded_repair));
+  else if (status == complete)
+    errors(Error(notnecessary_repair));
+  else if (status == unrepairable)
+    errors(Error(unrepairable));
+  else {
+    if (status == undef)
+      verify();
+    progressBar.set_text(_("Repairing..."));  
+    status_label.set_text(_("Repairing..."));
+    operation = repairing;
+    Result result = repairer->Process(true);
+    operation = none;
+    update_status(result);
+  }
 }
 
 void MainWindow::verify() {
-  status_label.set_text(_("Verifying..."));
-  operation = verifying;
-  Result result = repairer->Process(false);
-  operation = none;
-  update_status(result);
+  if (!file_loaded)
+    errors(Error(notloaded_verify));
+  else if (status != undef)
+    errors(already_verified);
+  else {
+    status_label.set_text(_("Verifying..."));
+    operation = verifying;
+    Result result = repairer->Process(false);
+    operation = none;
+    update_status(result);
+  }
 }
 
 void MainWindow::preprocess()
 {
   status_label.set_text(_("Scanning headers..."));
   operation = scanning;
-
+  file_loaded = true;
+  avail_blocks = 0;
+  status = undef;
   CommandLine *commandline = new CommandLine;
 
   Result result = eInvalidCommandLineArguments;
@@ -387,21 +417,21 @@ void MainWindow::signal_headers(ParHeaders* headers) {
 }
 
 void MainWindow::signal_done(std::string filename, int blocks_available, 
-		 int blocks_total) {
+			     int blocks_total) {
 
   Glib::RefPtr<Gtk::TextBuffer> textb = done_files.get_buffer();
 
-  Gtk::TextBuffer::iterator iter =  textb->begin();
+  Gtk::TextBuffer::iterator iter =  textb->end();
 
   // Update done_window
   if (operation == scanning) {
-    textb->set_text("Loaded: "+filename+"\n"+textb->get_text());
+    textb->insert(iter, _("Loaded: ")+filename+"\n");
     done_files.set_buffer(textb);
   }
   else if (operation == repairing || operation == verifying) {
     if (textb->get_char_count() != 0) {
       textb->insert(iter, "\n");
-      iter =  textb->begin();
+      iter =  textb->end();
     }
     if (blocks_available == blocks_total)
       textb->insert_with_tag(iter, _("Verified ")+filename+_(": ")+
@@ -423,6 +453,11 @@ void MainWindow::signal_done(std::string filename, int blocks_available,
   }
   while(Gtk::Main::events_pending()) Gtk::Main::iteration();
 
+  // scroll to last inserted line
+  int line_count = textb->get_line_count();
+  Gtk::TextBuffer::iterator scroll = textb->get_iter_at_line(line_count);
+  done_files.scroll_to(scroll, 0);
+
   //done_files.set_buffer(textb);
 
 }
@@ -430,46 +465,96 @@ void MainWindow::signal_done(std::string filename, int blocks_available,
 void MainWindow::update_status(Result result) {
  switch (result) {
   case eSuccess:
-    status_label.set_text(_("Success !"));
+    status_label.set_text(_("Complete"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("green"));
+    status = complete;
     break;
   case eRepairPossible:
     status_label.set_text(_("Repair possible"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("blue"));
+    status = repairable;
     break;
   case eRepairNotPossible:
     status_label.set_text(_("Repair not possible"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
+    status = unrepairable;
     break;
   case eInsufficientCriticalData:
     status_label.set_text(_("Insufficient critical data"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
+    status = unrepairable;
     break;
   case eRepairFailed:
     status_label.set_text(_("Repair failed"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
+    status = unrepairable;
     break;
   case eFileIOError:
     status_label.set_text(_("I/O error"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
+    status = unrepairable;
     break;
   case eLogicError:
     status_label.set_text(_("Internal error"));
     status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
+    status = unrepairable;
     break;
  case eMemoryError:
    status_label.set_text(_("Out of memory"));
    status_frame.modify_bg(Gtk::STATE_NORMAL,Gdk::Color::Color("red"));
-    break;
+   status = unrepairable;
+   break;
  default:
    break;
-  }
-
+ }
+ 
 }
+
+void MainWindow::errors(Error error)
+{
+  // display if trying to repair and no archive is loaded
+  if(error == notloaded_repair) {
+    Gtk::MessageDialog dialog(*this, _("Unable to Repair Archive"), false, 
+			      Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, false);
+    dialog.set_secondary_text(_("A recovery set must be loaded before it can be repaired.  Please check that a set has been loaded and try this request again."));
+    status_label.set_text(_("Repair Failed"));
+    status_frame.modify_bg(Gtk::STATE_NORMAL, Gdk::Color::Color("red"));
+    dialog.run();
+    status_label.set_text("");
+    status_frame.unset_bg(Gtk::STATE_NORMAL);
+  }
+  // display if trying to verify and archive not loaded
+  else if(error == notloaded_verify) {
+    Gtk::MessageDialog dialog(*this, _("Unable to Verify Archive"), false, 
+			      Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, false);
+    dialog.set_secondary_text(_("A recovery set must be loaded before verification.  Please check that a set has been loaded and try this request again."));
+    status_label.set_text(_("Verification Failed"));
+    status_frame.modify_bg(Gtk::STATE_NORMAL, Gdk::Color::Color("red"));
+    dialog.run();
+    status_label.set_text("");
+    status_frame.unset_bg(Gtk::STATE_NORMAL);
+  }
+  // display if archive doesn't need repairing
+  else if(error == notnecessary_repair) {
+    Gtk::MessageDialog dialog(*this, _("Repair Not Necessary"), false, 
+			      Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, false);
+    dialog.set_secondary_text(_("Verification of the recovery set has found the archive to be complete.  The archive does not need to be repaired."));
+    dialog.run();
+  }
+  // display if archive already verified
+  else if(error == already_verified) {
+    Gtk::MessageDialog dialog(*this, _("Verification Completed"), false, 
+			      Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, false);
+    dialog.set_secondary_text(_("Verification of the recovery set has already been performed.  You may repair the archive if necessary."));
+    dialog.run();
+  }
+}
+
 
 void MainWindow::open()
 {
-  Gtk::FileChooserDialog dialog(_("Please choose a file"), Gtk::FILE_CHOOSER_ACTION_OPEN);
+  Gtk::FileChooserDialog dialog(_("Open a Recovery Volume"), 
+				Gtk::FILE_CHOOSER_ACTION_OPEN);
   dialog.set_transient_for(*this);
 
   //Add response buttons the the dialog:
@@ -482,6 +567,11 @@ void MainWindow::open()
   filter_par2.set_name(_("PAR2 files"));
   filter_par2.add_mime_type("application/x-par2");
   dialog.add_filter(filter_par2);
+
+  Gtk::FileFilter filter_par1;
+  filter_par1.set_name(_("PAR files"));
+  filter_par1.add_mime_type("application/x-par");
+  dialog.add_filter(filter_par1);
 
   Gtk::FileFilter filter_any;
   filter_any.set_name(_("Any files"));
@@ -498,6 +588,15 @@ void MainWindow::open()
     {
       filename_entry.set_text(dialog.get_filename());
       filename_title.set_sensitive(true);
+      dialog.hide();
+      Glib::RefPtr<Gtk::TextBuffer> textb = done_files.get_buffer();
+      status_frame.unset_bg(Gtk::STATE_NORMAL);
+      textb->set_text("");
+      globalProgress.set_text(" ");
+      globalProgress.set_fraction(0.0);
+      //verified = 0;
+      //avail_blocks = 0;
+      status = undef;
       preprocess();
       break;
     }
@@ -514,7 +613,7 @@ void MainWindow::open()
 
 void MainWindow::about() {
   Gtk::MessageDialog dialog(*this, _("About GPar2"));
-  dialog.set_secondary_text(_("GPar2 is a GUI for par2 recovery sets.\nIn case of problems, please report them to the SourceForge BugTracker.\n\n(c) 2005 Francois LESUEUR"));
+  dialog.set_secondary_text(_("GPar2 is a GUI for PAR and PAR2 recovery sets.\n\nPlease report problems to the SourceForge BugTracker.\nhttp://parchive.sourceforge.net\n\n(c) 2005 Francois Lesueur\n\n(c) 2006 John Augustine"));
 
   dialog.run();
 }

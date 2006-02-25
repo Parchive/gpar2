@@ -1,3 +1,22 @@
+2006-02-25  John Augustine & Francois Lesueur
+	* Version 0.3 released
+	* Changed general text outputs for english fluency
+	* Changed Open dialog title to 'Open Recovery Volume'
+	* Changed 'Output' text from printing bottom to top, to top to bottom
+	* Changed 'Output' window's scroll bar policy from Automatic to Always
+	* Fixed users being able to write in the 'Output' window
+	* Fixed 'Open' dialog remaining open while 'Scanning Headers...'
+	* Fixed 'Segmentation Fault' when performing 'Verify' and no set is loaded
+	* Fixed 'Segmentation Fault' when performing 'Repair' and no set is loaded
+	* Fixed 'Global Progress Bar', 'Output', and 'Status', not clearing when loading a new set
+	* Added 'Quit' button to Toolbar
+	* Added MINIMAL original PAR (PAR1) support
+	* Added 'application/x-par' system mime-type ready for packaging
+	* Added auto-scrolling feature to 'Output' window, text prints in correct direction and remains in view
+	* Added error function and dialogs for common errors when performing 'Verify' and 'Repair'
+	* Added gnome-logo-icon-transparent.png to application, 
+	* Added Tooltips to 'Open', 'Verify', 'Repair', and 'Quit' Toolbar buttons
+
 2006-02-03  Francois LESUEUR
 	* Version 0.2 released
 	* Added detailed output about archived files

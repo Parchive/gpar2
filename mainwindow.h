@@ -31,6 +31,21 @@ protected:
   } Operation;
   Operation operation;
 
+  typedef enum {
+    notloaded_repair,
+    notloaded_verify,
+    notnecessary_repair,
+    already_verified
+  } Error;
+
+  typedef enum {
+    complete,
+    repairable,
+    unrepairable,
+    undef
+  } Status;
+  Status status;
+
   //Signal handlers:
   virtual void verify();
   virtual void repair();
@@ -45,6 +60,7 @@ protected:
   void signal_headers(ParHeaders* headers);
   void signal_done(std::string filename, int blocks_available, 
 		   int blocks_total);
+  void errors(Error error);
 
   LibPar2* repairer;
 
@@ -90,6 +106,8 @@ protected:
 
   double nbdone;
   double nbfiles;
+  bool file_loaded;
+  int avail_blocks;
 };
 
 // Tools

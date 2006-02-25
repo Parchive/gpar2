@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: flesueur@users.sourceforge.net\n"
-"POT-Creation-Date: 2006-02-03 17:18+0100\n"
+"POT-Creation-Date: 2006-02-25 18:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,170 +16,242 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mainwindow.cc:7 mainwindow.cc:321
+#: mainwindow.cc:9 mainwindow.cc:351
 msgid "Set ID: "
 msgstr ""
 
-#: mainwindow.cc:8 mainwindow.cc:337
+#: mainwindow.cc:10 mainwindow.cc:367
 msgid "Block size: "
 msgstr ""
 
-#: mainwindow.cc:10
+#: mainwindow.cc:12
 msgid "Data Blocks: "
 msgstr ""
 
-#: mainwindow.cc:11 mainwindow.cc:367
+#: mainwindow.cc:13 mainwindow.cc:397
 msgid "Data size: "
 msgstr ""
 
-#: mainwindow.cc:12 mainwindow.cc:374
+#: mainwindow.cc:14 mainwindow.cc:404
 msgid "Recoverable files: "
 msgstr ""
 
-#: mainwindow.cc:13 mainwindow.cc:381
+#: mainwindow.cc:15 mainwindow.cc:411
 msgid "Other files: "
 msgstr ""
 
-#: mainwindow.cc:15
+#: mainwindow.cc:17
 msgid "File: "
 msgstr ""
 
-#: mainwindow.cc:28
+#: mainwindow.cc:34
 msgid "File"
 msgstr ""
 
-#: mainwindow.cc:35
+#: mainwindow.cc:37 mainwindow.cc:556
+msgid "Open a Recovery Volume"
+msgstr ""
+
+#: mainwindow.cc:40
+msgid "Exit the Program"
+msgstr ""
+
+#: mainwindow.cc:45
 msgid "Actions"
 msgstr ""
 
-#: mainwindow.cc:36
+#: mainwindow.cc:46
 msgid "Repair"
 msgstr ""
 
-#: mainwindow.cc:39
+#: mainwindow.cc:46
+msgid "Repair a Damaged Archive"
+msgstr ""
+
+#: mainwindow.cc:49
 msgid "Verify"
 msgstr ""
 
-#: mainwindow.cc:44
+#: mainwindow.cc:49
+msgid "Verify an Archive"
+msgstr ""
+
+#: mainwindow.cc:54
 msgid "Help"
 msgstr ""
 
-#: mainwindow.cc:108
+#: mainwindow.cc:120
 msgid "Headers"
 msgstr ""
 
-#: mainwindow.cc:162
+#: mainwindow.cc:174
 msgid "Scanned files"
 msgstr ""
 
-#: mainwindow.cc:197
+#: mainwindow.cc:210
 msgid "Status"
 msgstr ""
 
-#: mainwindow.cc:214 mainwindow.cc:215
+#: mainwindow.cc:235 mainwindow.cc:236
 msgid "Repairing..."
 msgstr ""
 
-#: mainwindow.cc:223
+#: mainwindow.cc:250
 msgid "Verifying..."
 msgstr ""
 
-#: mainwindow.cc:232
+#: mainwindow.cc:260
 msgid "Scanning headers..."
 msgstr ""
 
-#: mainwindow.cc:330 mainwindow.cc:360
+#: mainwindow.cc:360 mainwindow.cc:390
 msgid " bytes"
 msgstr ""
 
-#: mainwindow.cc:332 mainwindow.cc:362
+#: mainwindow.cc:362 mainwindow.cc:392
 msgid " kbytes"
 msgstr ""
 
-#: mainwindow.cc:334 mainwindow.cc:364
+#: mainwindow.cc:364 mainwindow.cc:394
 msgid " Mbytes"
 msgstr ""
 
-#: mainwindow.cc:336 mainwindow.cc:366
+#: mainwindow.cc:366 mainwindow.cc:396
 msgid " Gbytes"
 msgstr ""
 
-#: mainwindow.cc:350
+#: mainwindow.cc:380
 msgid "Data blocks: "
 msgstr ""
 
-#: mainwindow.cc:407
-msgid "Verified "
-msgstr ""
-
-#: mainwindow.cc:407 mainwindow.cc:413
-msgid ": "
-msgstr ""
-
-#: mainwindow.cc:409 mainwindow.cc:415
-msgid " blocks"
-msgstr ""
-
-#: mainwindow.cc:411
-msgid "Missing "
-msgstr ""
-
-#: mainwindow.cc:413
-msgid "Corrupted "
-msgstr ""
-
-#: mainwindow.cc:433
-msgid "Success !"
+#: mainwindow.cc:428
+msgid "Loaded: "
 msgstr ""
 
 #: mainwindow.cc:437
-msgid "Repair possible"
+msgid "Verified "
+msgstr ""
+
+#: mainwindow.cc:437 mainwindow.cc:443
+msgid ": "
+msgstr ""
+
+#: mainwindow.cc:439 mainwindow.cc:445
+msgid " blocks"
 msgstr ""
 
 #: mainwindow.cc:441
+msgid "Missing "
+msgstr ""
+
+#: mainwindow.cc:443
+msgid "Corrupted "
+msgstr ""
+
+#: mainwindow.cc:468
+msgid "Complete"
+msgstr ""
+
+#: mainwindow.cc:473
+msgid "Repair possible"
+msgstr ""
+
+#: mainwindow.cc:478
 msgid "Repair not possible"
 msgstr ""
 
-#: mainwindow.cc:445
+#: mainwindow.cc:483
 msgid "Insufficient critical data"
 msgstr ""
 
-#: mainwindow.cc:449
+#: mainwindow.cc:488
 msgid "Repair failed"
 msgstr ""
 
-#: mainwindow.cc:453
+#: mainwindow.cc:493
 msgid "I/O error"
 msgstr ""
 
-#: mainwindow.cc:457
+#: mainwindow.cc:498
 msgid "Internal error"
 msgstr ""
 
-#: mainwindow.cc:461
+#: mainwindow.cc:503
 msgid "Out of memory"
 msgstr ""
 
-#: mainwindow.cc:472
-msgid "Please choose a file"
+#: mainwindow.cc:517
+msgid "Unable to Repair Archive"
 msgstr ""
 
-#: mainwindow.cc:482
+#: mainwindow.cc:519
+msgid ""
+"A recovery set must be loaded before it can be repaired.  Please check that "
+"a set has been loaded and try this request again."
+msgstr ""
+
+#: mainwindow.cc:520
+msgid "Repair Failed"
+msgstr ""
+
+#: mainwindow.cc:528
+msgid "Unable to Verify Archive"
+msgstr ""
+
+#: mainwindow.cc:530
+msgid ""
+"A recovery set must be loaded before verification.  Please check that a set "
+"has been loaded and try this request again."
+msgstr ""
+
+#: mainwindow.cc:531
+msgid "Verification Failed"
+msgstr ""
+
+#: mainwindow.cc:539
+msgid "Repair Not Necessary"
+msgstr ""
+
+#: mainwindow.cc:541
+msgid ""
+"Verification of the recovery set has found the archive to be complete.  The "
+"archive does not need to be repaired."
+msgstr ""
+
+#: mainwindow.cc:546
+msgid "Verification Completed"
+msgstr ""
+
+#: mainwindow.cc:548
+msgid ""
+"Verification of the recovery set has already been performed.  You may repair "
+"the archive if necessary."
+msgstr ""
+
+#: mainwindow.cc:567
 msgid "PAR2 files"
 msgstr ""
 
-#: mainwindow.cc:487
+#: mainwindow.cc:572
+msgid "PAR files"
+msgstr ""
+
+#: mainwindow.cc:577
 msgid "Any files"
 msgstr ""
 
-#: mainwindow.cc:516
+#: mainwindow.cc:615
 msgid "About GPar2"
 msgstr ""
 
-#: mainwindow.cc:517
+#: mainwindow.cc:616
 msgid ""
-"GPar2 is a GUI for par2 recovery sets.\n"
-"In case of problems, please report them to the SourceForge BugTracker.\n"
+"GPar2 is a GUI for PAR and PAR2 recovery sets.\n"
 "\n"
-"(c) 2005 Francois LESUEUR"
+"Please report problems to the SourceForge BugTracker.\n"
+"http://parchive.sourceforge.net\n"
+"\n"
+"(c) 2005 Francois Lesueur\n"
+"\n"
+"(c) 2006 John Augustine"
 msgstr ""

@@ -1,7 +1,7 @@
 dnl  This file is part of GPar2 (a PAR 2.0 compatible file verification and
 dnl  repair GUI). See http://parchive.sourceforge.net for details of PAR 2.0.
 dnl
-dnl  Copyright (c) 2003 Francois LESUEUR
+dnl  Copyright (c) 2005 Francois LESUEUR
 dnl
 dnl  GPar2 is free software; you can redistribute it and/or modify
 dnl  it under the terms of the GNU General Public License as published by
@@ -20,13 +20,13 @@ dnl                                               -*- Autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.58a)
-AC_INIT([gpar2], [0.2], [flesueur@users.sourceforge.net])
+AC_INIT([gpar2], [0.3], [flesueur@users.sourceforge.net])
 AC_CONFIG_SRCDIR([gpar2.cc])
 
 AC_CANONICAL_HOST
 
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gpar2,0.2)
+AM_INIT_AUTOMAKE(gpar2,0.3)
 
 
 dnl Checks for programs.

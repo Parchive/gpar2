@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
   bind_textdomain_codeset( PACKAGE, getenv("LANG"));
   textdomain( PACKAGE ) ;
 
-  void* handle = dlopen("libpar2.so", RTLD_LAZY);
+  void* handle = dlopen("libpar2.so.0", RTLD_LAZY);
     
   if (!handle) {
     cerr << "Cannot open library: " << dlerror() << '\n';
