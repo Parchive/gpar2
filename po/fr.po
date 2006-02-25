@@ -270,7 +270,7 @@ msgstr ""
 "Merci de signaler les problèmes au BugTracker SourceForge.\n"
 "http://parchive.sourceforge.net\n"
 "\n"
-"(c) 2005 François Lesueur"
+"(c) 2005 François Lesueur\n"
 "\n"
 "(c) 2006 John Augustine"
 
