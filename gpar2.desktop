@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=GPar2
+Comment=GUI for Parity Volumes
+Icon=gnome-main-menu
+Exec=gpar2 %f
+Terminal=false
+MimeType=application/x-par;application/x-par2
+Type=Application
+Categories=Application;Utility;
+Encoding=UTF-8

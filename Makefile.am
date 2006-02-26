@@ -1,7 +1,8 @@
 ##  This file is part of GPar2 (a PAR 2.0 compatible file verification and
 ##  repair GUI). See http://parchive.sourceforge.net for details of PAR 2.0.
 ##
-##  Copyright (c) 2005 Francois LESUEUR
+##  Copyright (c) 2005 Francois Lesueur
+##  Copyright (c) 2006 John Augustine
 ##
 ##  GPar2 is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -28,7 +29,7 @@ AM_LDFLAGS = -lstdc++ -lsigc-2.0 `pkg-config gtkmm-2.4 --libs` -lpar2
 INCLUDES = `pkg-config sigc++-2.0 gtkmm-2.4 --cflags`
 AM_CXXFLAGS = -DLOCALEDIR='"$(prefix)/share/locale"'
 
-EXTRA_DIST = config.rpath gnome-logo-icon-transparent.png gpar2.xml
+EXTRA_DIST = config.rpath gnome-logo-icon-transparent.png gpar2.xml debian
 
 
 

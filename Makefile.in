@@ -190,7 +190,7 @@ gpar2_SOURCES = gpar2.cc gpar2.h \
 AM_LDFLAGS = -lstdc++ -lsigc-2.0 `pkg-config gtkmm-2.4 --libs` -lpar2
 INCLUDES = `pkg-config sigc++-2.0 gtkmm-2.4 --cflags`
 AM_CXXFLAGS = -DLOCALEDIR='"$(prefix)/share/locale"'
-EXTRA_DIST = config.rpath gnome-logo-icon-transparent.png gpar2.xml
+EXTRA_DIST = config.rpath gnome-logo-icon-transparent.png gpar2.xml debian
 SUBDIRS = po m4
 ACLOCAL_AMFLAGS = -I m4
 all: config.h
