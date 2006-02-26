@@ -1,0 +1,18 @@
+Source: gpar2
+Section: utils
+Priority: optional
+Maintainer: John Augustine <jaugustine@vivnet.net>
+Build-Depends: debhelper (>= 4.1.0), autotools-dev, libsigc++-2.0-dev, libstdc++6-dev, libgtkmm-2.4-dev, libpar2-0-dev
+Standards-Version: 3.6.2
+
+Package: gpar2
+Architecture: any
+Depends: libpar2-0 (>= 0.2), libsigc++-2.0-dev, libstdc++6 (>= 3.4.4), libgtkmm-2.4-dev
+Description: A GUI for verifying and repairing PAR and PAR2 recovery sets
+ A simple, easy to use graphical interface for verification and
+ repairation of PAR v1.0 and PAR v2.0(PAR2) recovery sets.  PAR1
+ support is currently minimal, as it is deprecated this most
+ likely will not change, so do not expect the headers, progress,
+ output, and status to update when performing actions on these.
+ GPar2 is based on GTKMM, a wrapper for GTK+, and requires the
+ standard par2 library, libpar2, to run.
