@@ -19,6 +19,7 @@ MainWindow::MainWindow(char* text)
   operation = none;
   nbdone = 0.0;
   set_title("GPar2 " + version);
+  set_resizable(false);
   set_icon_from_file("/usr/share/pixmaps/gnome-logo-icon-transparent.png");
   set_size_request(600, 350);
   add(main_VBox);
@@ -228,7 +229,7 @@ void MainWindow::repair() {
   else if (status == complete)
     errors(Error(notnecessary_repair));
   else if (status == unrepairable)
-    errors(Error(unrepairable));
+    errors(Error(notpossible_repair));
   else {
     if (status == undef)
       verify();
@@ -546,6 +547,13 @@ void MainWindow::errors(Error error)
     Gtk::MessageDialog dialog(*this, _("Verification Completed"), false, 
 			      Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, false);
     dialog.set_secondary_text(_("Verification of the recovery set has already been performed.  You may repair the archive if necessary."));
+    dialog.run();
+  }
+  // display if archive unrepairable
+  else if(error == notpossible_repair) {
+    Gtk::MessageDialog dialog(*this, _("Repair Not Possible"), false,
+                              Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, false);
+    dialog.set_secondary_text(_("Unable to repair the archive.  You do not have enough recovery blocks to repair."));
     dialog.run();
   }
 }

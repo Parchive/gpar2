@@ -35,6 +35,7 @@ protected:
     notloaded_repair,
     notloaded_verify,
     notnecessary_repair,
+    notpossible_repair,
     already_verified
   } Error;
 
