@@ -246,8 +246,8 @@ msgid ""
 "Unable to repair the archive.  You do not have enough recovery blocks to "
 "repair."
 msgstr ""
-"Impossible de réparer l'archive. Vous n'avez pas assez de blocs de réparation"
-"."
+"Impossible de réparer l'archive. Vous n'avez pas assez de blocs de "
+"réparation."
 
 #: mainwindow.cc:575
 msgid "PAR2 files"

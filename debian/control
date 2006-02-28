@@ -2,12 +2,12 @@ Source: gpar2
 Section: utils
 Priority: optional
 Maintainer: John Augustine <jaugustine@vivnet.net>
-Build-Depends: debhelper (>= 4.1.0), autotools-dev, libsigc++-2.0-dev, libstdc++6-dev, libgtkmm-2.4-dev, libpar2-0-dev
+Build-Depends: debhelper (>= 4.1.0), autotools-dev, libsigc++-2.0-dev, libstdc++6-dev, libgtkmm-2.4-dev, libpar2-0-dev (>= 0.2), gnome-desktop-data
 Standards-Version: 3.6.2
 
 Package: gpar2
 Architecture: any
-Depends: libpar2-0 (>= 0.2), libsigc++-2.0-dev, libstdc++6 (>= 3.4.4), libgtkmm-2.4-dev
+Depends: libpar2-0 (>= 0.2), libsigc++-2.0-0c2 | libsigc++-2.0-0c2a, libstdc++6 (>= 3.4.4), libgtkmm-2.4-1c2 | libgtkmm-2.4-1c2a, gnome-desktop-data
 Description: A GUI for verifying and repairing PAR and PAR2 recovery sets
  A simple, easy to use graphical interface for verification and
  repairation of PAR v1.0 and PAR v2.0(PAR2) recovery sets.  PAR1

@@ -29,7 +29,10 @@ AM_LDFLAGS = -lstdc++ -lsigc-2.0 `pkg-config gtkmm-2.4 --libs` -lpar2
 INCLUDES = `pkg-config sigc++-2.0 gtkmm-2.4 --cflags`
 AM_CXXFLAGS = -DLOCALEDIR='"$(prefix)/share/locale"'
 
-EXTRA_DIST = config.rpath gnome-logo-icon-transparent.png gpar2.xml debian
+EXTRA_DIST = config.rpath gnome-logo-icon-transparent.png gpar2.xml \
+	gpar2.desktop debian/changelog debian/compat debian/control \
+	debian/copyright debian/dirs debian/docs \
+	debian/gpar2.1 debian/postinst debian/postrm debian/rules
 
 
 

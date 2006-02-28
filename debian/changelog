@@ -1,8 +1,30 @@
-gpar2 (0.2-1) unstable; urgency=low
+gpar2 (0.3-1) unstable; urgency=low
 
-  * Packaged for Debian systems
+  * Changed version to match policy
 
- -- John Augustine <jaugustine@vivnet.net>  Sun, 26 Feb 2006 04:38:29 -0800
+ -- John Augustine <jaugustine@vivnet.net>  Mon, 27 Feb 2006 12:42:33 -0800
+
+gpar2 (0.3) unstable; urgency=low
+
+  * Version 0.3 released
+  * Changed general text outputs for English fluency
+  * Changed Open dialog title to Open Recovery Volume
+  * Changed Scanned files dialog text printing direction, prints text top to bottom
+  * Changed Scanned files scrollbar policy from Automatic to Always
+  * Fixed users being able to write to Scanned files window
+  * Fixed Open dialog remaining open while Scanning Headers...
+  * Fixed SegFault when performing Verify and no file is loaded
+  * Fixed SegFault when performing Repair and no file is loaded
+  * Fixed GlobalProgressBar, Scanned files, and Status not clearing when new volume loaded
+  * Added Quit button to toolbar
+  * Added MINIMAL original PAR(PAR1) support
+  * Added 'application/x-par' system mime-type ready for packaging
+  * Added auto-scrolling to Scanned files window, newest output is always visible
+  * Added error funtion and dialogs for common errors while performing verify and repair
+  * Added gnome-logo-icon-transparent.png to application
+  * Added tooltips to Open, Verify, Repair, and Quit buttons
+
+ -- Francois Lesueur <flesueur@users.sourceforge.net>  Sun, 26 Feb 2006 00:00:00 +0100
 
 gpar2 (0.2) unstable; urgency=low
 
